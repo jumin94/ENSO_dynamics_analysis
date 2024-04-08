@@ -20,7 +20,7 @@ def PasaBajos(senal):
     salida: senial filtrada (np.array)
     """
     fs = 365 #pienso en años, como la unidad es el año, mi frec de muestreo es 365 muestras por año (señal en días)
-    frec_c = 1.2 #Tres muestras por año o sea frecuencia de corte es un trimestre (2 sería 6 meses y es demasiado)
+    frec_c = 1.5 #Tres muestras por año o sea frecuencia de corte es un trimestre (2 sería 6 meses y es demasiado)
     nyq = .5*fs #Nysquits para pasarle al filtro
     frec = frec_c / nyq 
     orden = 6
@@ -72,10 +72,10 @@ def close_returns(senal):
     salida: matriz (i,p) con los close returns (np.array 2D)
     """
     cr =  np.zeros((len(senal),2000)) #cr de close returns
-    eps = (np.max(senal)-np.min(senal))*0.001
+    eps = (np.max(senal)-np.min(senal))*0.005
     for j in range(2000):
       for i in range(len(senal)-2000):
-        if (np.abs(senal[i+j] - senal[i]) < eps) and (np.abs(senal[i+j+4] - senal[i+4]) < eps):
+        if (np.abs(senal[i+j] - senal[i]) < eps) and (np.abs(senal[i+j+1] - senal[i+1]) < eps):
           cr[i,j] = 1
     return cr
 
